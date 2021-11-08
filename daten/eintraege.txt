@@ -1,0 +1,4 @@
+a:1:{i:1;a:4:{s:5:"titel";s:10:"Langweilig";s:11:"erstellt_am";i:1634716123;s:5:"autor";s:7:"jsartre";s:6:"inhalt";s:224:"Dies ist ein Blindtext. Blindtexte sind zumeist weder informativ noch interessant, 
+                              sondern ausgesprochen langweilig.
+                              
+                              So auch dieser.";}}
