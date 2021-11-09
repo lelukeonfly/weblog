@@ -4,7 +4,7 @@
     session_start();
 
     // In Blogs werden Einträge immer in umgekehrter Reihenfolge angezeigt
-    $eintraege = hole_eintraege(true);
+    $unserialized = hole_eintraege(true);
 ?>
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@
 
         <div id="inhalt">
 
-            <?php foreach ($eintraege as $k => $e): ?>
+            <?php foreach ($unserialized as $k => $e): ?>
                 <h1><?php echo htmlspecialchars($e['titel']); ?></h1>
 	            <?php echo nl2br(htmlspecialchars($e['inhalt'])); ?>
 
@@ -43,6 +43,7 @@
                   if (strcmp($_SESSION['eingeloggt'], $e['autor'])===0) {?>
                   <span>
                     <a href="loeschen.php?index=<?=$k?>">X</a>
+                    <a href="bearbeiten.php?index=<?=$k?>">edit</a>
                   </span>
                 <?php }} ?>
 	            </p>

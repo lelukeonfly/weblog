@@ -1,14 +1,14 @@
 <?php
 
 function hole_eintraege($umgedreht = false) {
-    $eintraege = array();
+    $unserialized = array();
     if (file_exists(PFAD_EINTRAEGE)) {
-        $eintraege = unserialize(file_get_contents(PFAD_EINTRAEGE));
+        $unserialized = unserialize(file_get_contents(PFAD_EINTRAEGE));
         if ($umgedreht === true) {
-            $eintraege = array_reverse($eintraege,true);
+            $unserialized = array_reverse($unserialized,true);
         }
     }
-    return $eintraege;
+    return $unserialized;
 }
 
 function ist_eingeloggt() {

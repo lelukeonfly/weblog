@@ -14,7 +14,7 @@
     }
     
     // Erstelle einen neuen Eintrag im Format der anderen Einträge
-    $eintrag = array(
+    $article = array(
         'titel'       => trim($_POST['titel']),
         'inhalt'      => trim($_POST['inhalt']),
         'autor'       => $_SESSION['eingeloggt'],
@@ -22,9 +22,9 @@
     );
     
     // hole die alten Einträge, hänge den neuen an und speichere
-    $eintraege   = hole_eintraege();
-    $eintraege[] = $eintrag;
-    file_put_contents(PFAD_EINTRAEGE, serialize($eintraege));
+    $unserialized   = hole_eintraege();
+    $unserialized[] = $article;
+    file_put_contents(PFAD_EINTRAEGE, serialize($unserialized));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -49,9 +49,9 @@
             
             <h3>Folgender Eintrag wurde erfolgreich gespeichert:</h3>
 			<div class="zitat">
-            	<h1><?php echo htmlspecialchars($eintrag['titel']); ?></h1>
+            	<h1><?php echo htmlspecialchars($article['titel']); ?></h1>
                 <p>
-                    <?php echo nl2br(htmlspecialchars($eintrag['inhalt'])); ?>
+                    <?php echo nl2br(htmlspecialchars($article['inhalt'])); ?>
                 </p>
                 <p>
 	                <a href="index.php" class="backlink">Zurück zur Hauptseite</a>
