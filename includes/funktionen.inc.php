@@ -1,14 +1,23 @@
 <?php
 
 function hole_eintraege($umgedreht = false) {
-    $unserialized = array();
-    if (file_exists(PFAD_EINTRAEGE)) {
-        $unserialized = unserialize(file_get_contents(PFAD_EINTRAEGE));
-        if ($umgedreht === true) {
-            $unserialized = array_reverse($unserialized,true);
-        }
+
+    if($umgedreht){
+        $orderby = "ASC";
+    }else{
+        $orderby = "DESC";
     }
-    return $unserialized;
+
+    $db_connection = get_db_connection();
+    $query = "SELECT * FROM beitraege ORDER BY erstellt_am $orderby";
+    $result = mysqli_query($db_connection, $query);
+
+    if($result){
+    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    }
+    mysqli_close($db_connection);
+
+    return $rows;
 }
 
 function ist_eingeloggt() {
@@ -34,5 +43,15 @@ function darf_loeschen($benutzer, $artikel_benutzer)
   return strcmp($benutzer,$artikel_benutzer)==0?true:false;
 }
 
+function get_db_connection()
+{
+    $database = "weblog";
+    $host = "127.0.0.1";
+    $user = "weblog";
+    $pwd = "weblog";
+    $db_connection = new mysqli($host, $user, $pwd, $database);
+
+    return $db_connection;
+}
 
 ?>
