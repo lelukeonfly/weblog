@@ -34,8 +34,8 @@
                         geschrieben von
                         <?=htmlspecialchars($e['vorname']);?>
                         <?=htmlspecialchars($e['nachname']);?>
-                        am <?php echo date('d.m.Y',strtotime($e['erstellt_am']));?>
-                        um <?php echo date('H:i',strtotime($e['erstellt_am']));?>
+                        am <?=date('d.m.Y',strtotime($e['erstellt_am']));?>
+                        um <?=date('H:i',strtotime($e['erstellt_am']));?>
 	                </span>
                   <?php
                   if (ist_eingeloggt()) {
