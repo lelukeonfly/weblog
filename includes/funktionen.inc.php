@@ -9,7 +9,8 @@ function hole_eintraege($umgedreht = false) {
     }
 
     $db_connection = get_db_connection();
-    $query = "SELECT * FROM beitraege ORDER BY erstellt_am $orderby";
+    #$query = "SELECT * FROM beitraege ORDER BY erstellt_am $orderby";
+    $query = "SELECT * FROM beitraege JOIN benutzer ON beitraege.benutzer_id = benutzer.id ORDER BY erstellt_am $orderby";
     $result = mysqli_query($db_connection, $query);
 
     if($result){

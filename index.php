@@ -31,12 +31,18 @@
 
 	            <p class="eintrag_unten">
 	                <span>
-	                    <?php $benutzer = $benutzer_daten[$e['autor']]; ?>
+                        geschrieben von
+                        <?=htmlspecialchars($e['vorname']);?>
+                        <?=htmlspecialchars($e['nachname']);?>
+                        am <?=$e['erstellt_am'];?>
+                        um
+                        <!-- ERROR: -->
+	                    <!--<?php $benutzer = $benutzer_daten[$e['autor']]; ?>
 	                    geschrieben von
 	                    <?php echo $benutzer['vorname']; ?>
 	                    <?php echo $benutzer['nachname']; ?>
 	                    am <?php echo  strftime('%d.%m.%Y', $e['erstellt_am']); ?>
-	                    um <?php echo strftime('%H:%M', $e['erstellt_am']); ?>
+	                    um <?php echo strftime('%H:%M', $e['erstellt_am']); ?>-->
 	                </span>
                   <?php
                   if (ist_eingeloggt()) {
