@@ -47,7 +47,7 @@ function darf_loeschen($benutzer, $artikel_benutzer)
 function get_db_connection()
 {
     $database = "weblog";
-    $host = "127.0.0.1";
+    $host = "localhost";
     $user = "weblog";
     $pwd = "weblog";
     $db_connection = new mysqli($host, $user, $pwd, $database);
