@@ -9,17 +9,18 @@
     $articleid = filter_input(INPUT_GET, 'index');
     //holt einträge von include/funktionen.inc.php
     $unserialized = hole_eintraege();
+    #var_dump($unserialized);
 
-    //itereiert durch alle unserialisierten einträge und speichert den ausgewählten eintrag welcher mit dem Artikelindex kennbar ist in neue variablen
+    //itereiert durch alle unserialisierten einträge und überprüft, wo die GET id dieselbe ist wie bei den Datenbankeinträgen id und schreibt somit titel und inhalt in fleder
     foreach ($unserialized as $e) {
-        $titel = htmlspecialchars($unserialized[$articleid]['titel']);
-        $inhalt = htmlspecialchars($unserialized[$articleid]['inhalt']);
+        if($e['id']==$articleid){
+            $titel = htmlspecialchars($e['titel']);
+            $inhalt = htmlspecialchars($e['inhalt']);
+        }
     }
 
-    //löscht den Ausgewählten Artikel vom unserialisierten Array
-    unset($unserialized[$articleid]);
-    //schreibt die Artikel wieder ins Dokument
-    file_put_contents(PFAD_EINTRAEGE, serialize($unserialized));
+    //TODO: ARTIKEL ÄNDERN
+    
 
 ?>
 <!DOCTYPE html>

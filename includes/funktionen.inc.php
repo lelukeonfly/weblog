@@ -9,16 +9,11 @@ function hole_eintraege($umgedreht = false) {
     }
 
     $db_connection = get_db_connection();
-    #$query = "SELECT * FROM beitraege ORDER BY erstellt_am $orderby";
-    $query = "SELECT * FROM beitraege JOIN benutzer ON beitraege.benutzer_id = benutzer.id ORDER BY erstellt_am $orderby";
-    $result = mysqli_query($db_connection, $query);
+    $query = "SELECT beitraege.id, beitraege.titel, beitraege.inhalt, beitraege.erstellt_am, benutzer.vorname, benutzer.nachname, benutzer.benutzername FROM beitraege JOIN benutzer ON beitraege.benutzer_id = benutzer.id ORDER BY erstellt_am $orderby";
+    $statement = $db_connection->query($query);
+    $daten = $statement->fetchAll();
 
-    if($result){
-    $rows = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-    mysqli_close($db_connection);
-
-    return $rows;
+    return $daten;
 }
 
 function ist_eingeloggt() {
@@ -32,6 +27,7 @@ function ist_eingeloggt() {
 
 function logge_ein($benutzername) {
     $_SESSION['eingeloggt'] = $benutzername;
+    $_SESSION['id'] = get_benutzer_id($benutzername);
 }
 
 function logge_aus() {
@@ -50,9 +46,34 @@ function get_db_connection()
     $host = "localhost";
     $user = "weblog";
     $pwd = "weblog";
-    $db_connection = new mysqli($host, $user, $pwd, $database);
-
+    $port = "3306";
+    $db_connection = new PDO("mysql:host=$host;dbname=$database;port=$port",$user,$pwd);
+    
     return $db_connection;
+}
+
+function get_username_and_password($username){
+    $db_connection = get_db_connection();
+
+    $query = "SELECT benutzer.benutzername, benutzer.passwort FROM benutzer WHERE benutzer.benutzername = '$username'";
+    $statement = $db_connection->query($query);
+    $daten = $statement->fetch();
+    return $daten;
+}
+
+function schreibe_eintrag($eintrag_array){
+    $db_connection = get_db_connection();
+    $query = "INSERT INTO beitraege(titel,inhalt,erstellt_am,benutzer_id) VALUES (".$eintrag_array["titel"].",".$eintrag_array["inhalt"].",".$eintrag_array["erstellt_am"].",".$eintrag_array["autor"].")";
+    $db_connection->query($query);
+}
+
+function get_benutzer_id($username){
+    $db_connection = get_db_connection();
+
+    $query = "SELECT benutzer.id FROM benutzer WHERE benutzer.benutzername = '$username'";
+    $statement = $db_connection->query($query);
+    $daten = $statement->fetch();
+    return $daten;
 }
 
 ?>

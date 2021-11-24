@@ -39,10 +39,10 @@
 	                </span>
                   <?php
                   if (ist_eingeloggt()) {
-                  if (strcmp($_SESSION['eingeloggt'], $e['autor'])===0) {?>
+                  if (strcmp($_SESSION['eingeloggt'], $e['benutzername'])===0) {?>
                   <span>
-                    <a href="loeschen.php?index=<?=$k?>">X</a>
-                    <a href="bearbeiten.php?index=<?=$k?>">edit</a>
+                    <a href="loeschen.php?index=<?=htmlspecialchars($e['id']);?>">X</a>
+                    <a href="bearbeiten.php?index=<?=htmlspecialchars($e['id']);?>">edit</a>
                   </span>
                 <?php }} ?>
 	            </p>

@@ -17,14 +17,17 @@
     $article = array(
         'titel'       => trim($_POST['titel']),
         'inhalt'      => trim($_POST['inhalt']),
-        'autor'       => $_SESSION['eingeloggt'],
+        #'autor'       => $_SESSION['eingeloggt'], #zu benutzerid ändern
+        'autor'       => get_benutzer_id($_SESSION['eingeloggt']),
         'erstellt_am' => time()
     );
+
+    schreibe_eintrag($article);
     
     // hole die alten Einträge, hänge den neuen an und speichere
-    $unserialized   = hole_eintraege();
-    $unserialized[] = $article;
-    file_put_contents(PFAD_EINTRAEGE, serialize($unserialized));
+    #$unserialized   = hole_eintraege();
+    #$unserialized[] = $article;
+    #file_put_contents(PFAD_EINTRAEGE, serialize($unserialized));
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
