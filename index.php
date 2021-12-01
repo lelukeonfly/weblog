@@ -5,7 +5,7 @@
 
     // In Blogs werden Einträge immer in umgekehrter Reihenfolge angezeigt
     $unserialized = hole_eintraege(true);
-    var_dump($_SESSION);
+    #var_dump($_SESSION);
 ?>
 <!DOCTYPE html>
 <html>
