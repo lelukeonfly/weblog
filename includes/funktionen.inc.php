@@ -9,7 +9,7 @@ function hole_eintraege($umgedreht = false) {
     }
 
     $db_connection = get_db_connection();
-    $query = "SELECT beitraege.id, beitraege.titel, beitraege.inhalt, beitraege.erstellt_am, benutzer.vorname, benutzer.nachname, benutzer.benutzername FROM beitraege JOIN benutzer ON beitraege.benutzer_id = benutzer.id ORDER BY erstellt_am $orderby";
+    $query = "SELECT bt.id, bt.titel, bt.inhalt, bt.erstellt_am, b.vorname, b.nachname, b.benutzername FROM beitraege bt JOIN benutzer b ON bt.benutzer_id = b.id ORDER BY erstellt_am $orderby";
     $statement = $db_connection->query($query);
     $daten = $statement->fetchAll();
 
@@ -32,12 +32,13 @@ function logge_ein($benutzername) {
 
 function logge_aus() {
     unset($_SESSION['eingeloggt']);
+    unset($_SESSION['id']);
 }
 
 
-function darf_loeschen($benutzer, $artikel_benutzer)
+function darf_loeschen($artikel_benutzer_id)
 {
-  return strcmp($benutzer,$artikel_benutzer)==0?true:false;
+  return $_SESSION['id']==$artikel_benutzer_id?true:false;
 }
 
 function get_db_connection()
@@ -52,18 +53,20 @@ function get_db_connection()
     return $db_connection;
 }
 
-function get_username_and_password($username){
+function get_user_login($username,$passwort){
     $db_connection = get_db_connection();
 
-    $query = "SELECT benutzer.benutzername, benutzer.passwort FROM benutzer WHERE benutzer.benutzername = '$username'";
+    #$query = "SELECT benutzer.benutzername, benutzer.passwort FROM benutzer WHERE benutzer.benutzername = '$username'";
+    #SELECT COUNT(benutzer.benutzername) FROM benutzer WHERE benutzer.benutzername = '$username' AND benutzer.passwort = '$passwort'
+    $query = "SELECT COUNT(benutzer.benutzername) FROM benutzer WHERE benutzer.benutzername = '$username' AND benutzer.passwort = '$passwort'";
     $statement = $db_connection->query($query);
     $daten = $statement->fetch();
-    return $daten;
+    return (bool)$daten;
 }
 
 function schreibe_eintrag($eintrag_array){
     $db_connection = get_db_connection();
-    $query = "INSERT INTO beitraege(titel,inhalt,erstellt_am,benutzer_id) VALUES (".$eintrag_array["titel"].",".$eintrag_array["inhalt"].",".$eintrag_array["erstellt_am"].",".$eintrag_array["autor"].")";
+    $query = "INSERT INTO beitraege(titel,inhalt,erstellt_am,benutzer_id) VALUES ('".$eintrag_array["titel"]."','".$eintrag_array["inhalt"]."',".$eintrag_array["erstellt_am"].",".$eintrag_array["autor"].")";
     $db_connection->query($query);
 }
 
@@ -73,7 +76,14 @@ function get_benutzer_id($username){
     $query = "SELECT benutzer.id FROM benutzer WHERE benutzer.benutzername = '$username'";
     $statement = $db_connection->query($query);
     $daten = $statement->fetch();
-    return $daten;
+    return $daten['id'];
+}
+
+function loeschen($beitrag_id)
+{
+    $db_connection = get_db_connection();
+    $query = "DELETE FROM beitraege WHERE id=$beitrag_id";
+    $db_connection->query($query);
 }
 
 ?>

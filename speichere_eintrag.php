@@ -18,7 +18,8 @@
         'titel'       => trim($_POST['titel']),
         'inhalt'      => trim($_POST['inhalt']),
         #'autor'       => $_SESSION['eingeloggt'], #zu benutzerid ändern
-        'autor'       => get_benutzer_id($_SESSION['eingeloggt']),
+        #'autor'       => get_benutzer_id($_SESSION['eingeloggt']),
+        'autor'       => $_SESSION['id'],
         'erstellt_am' => time()
     );
 

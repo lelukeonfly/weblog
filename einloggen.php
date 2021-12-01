@@ -4,8 +4,8 @@
     session_start();
 
 
-    if(strcmp(trim($_POST['passwort']),get_username_and_password(trim($_POST['benutzername']))['passwort'])==0?true:false){
-        logge_ein(get_username_and_password(trim($_POST['benutzername']))['benutzername']);
+    if(get_user_login(trim($_POST['benutzername']),trim($_POST['passwort']))){
+        logge_ein(trim($_POST['benutzername']));
     }
     
     
