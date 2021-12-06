@@ -66,7 +66,7 @@ function get_user_login($username,$passwort){
 
 function schreibe_eintrag($eintrag_array){
     $db_connection = get_db_connection();
-    $query = "INSERT INTO beitraege(titel,inhalt,erstellt_am,benutzer_id) VALUES ('".$eintrag_array["titel"]."','".$eintrag_array["inhalt"]."',".$eintrag_array["erstellt_am"].",".$eintrag_array["autor"].")";
+    $query = "INSERT INTO beitraege(titel,inhalt,erstellt_am,benutzer_id) VALUES ('".$eintrag_array["titel"]."','".$eintrag_array["inhalt"]."','".$eintrag_array["erstellt_am"]."',".$eintrag_array["autor"].")";
     $db_connection->query($query);
 }
 

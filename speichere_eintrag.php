@@ -1,5 +1,4 @@
 <?php
-    require_once 'includes/konfiguration.php';
     require_once 'includes/funktionen.inc.php';
     session_start();
     
@@ -8,7 +7,7 @@
      * über POST aufgerufen, also das Formular nicht abgeschickt wurde, 
      * leite auf index.php um. 
      */
-    if ( (! ist_eingeloggt()) || (empty($_POST)) ) {
+    if(empty($_POST['titel'])||empty($_POST['inhalt'])||!ist_eingeloggt()){
         header('Location: index.php');
         exit;
     }
@@ -20,9 +19,11 @@
         #'autor'       => $_SESSION['eingeloggt'], #zu benutzerid ändern
         #'autor'       => get_benutzer_id($_SESSION['eingeloggt']),
         'autor'       => $_SESSION['id'],
-        'erstellt_am' => time()
+        'erstellt_am' => date("Y-m-d H:i:s")
     );
 
+
+    #fehler hier:::::::::::::::
     schreibe_eintrag($article);
     
     // hole die alten Einträge, hänge den neuen an und speichere
