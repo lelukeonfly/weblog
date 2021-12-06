@@ -1,5 +1,4 @@
 <?php
-    require_once 'includes/konfiguration.php';
     require_once 'includes/funktionen.inc.php';
 
     //started session wieder dass man auf session variablen zugreifen kann

@@ -1,5 +1,4 @@
 <?php
-    require_once 'includes/konfiguration.php';
     require_once 'includes/funktionen.inc.php';
     session_start();
 
@@ -59,7 +58,8 @@
                  */
                 if (ist_eingeloggt()) {
                   require 'includes/hauptmenu.php';
-                } else {
+                }
+                else {
                 	require 'includes/loginformular.php';
                 }
             ?>

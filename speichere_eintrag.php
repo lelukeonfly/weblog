@@ -23,7 +23,6 @@
     );
 
 
-    #fehler hier:::::::::::::::
     schreibe_eintrag($article);
     
     // hole die alten Einträge, hänge den neuen an und speichere

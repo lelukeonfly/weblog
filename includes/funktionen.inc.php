@@ -91,7 +91,14 @@ function bearbeiten($bearbetien_array){
     #UPDATE `beitraege` SET `titel` = 'asdfjhljghaeljagfhagrhjuögrejögfrjkoöadföpi', `inhalt` = 'agnam,flkasdflashdflkjashdfklagsdoifgaosidlfgasljdghfklashdfasdfasdf' WHERE `beitraege`.`id` = 8; 
     #change autor to beitrag id in bearbeitung_eintragen.php
     $query = "UPDATE beitraege SET titel = '".$bearbetien_array['titel']."', inhalt = '".$bearbetien_array['inhalt']."', erstellt_am = '".$bearbetien_array['erstellt_am']."' WHERE beitraege.id = ".$bearbetien_array['autor'].";";
-    echo $query;
+    $db_connection->query($query);
+}
+
+
+function register($register_array)
+{
+    $db_connection = get_db_connection();
+    $query = "INSERT INTO benutzer(vorname, nachname, passwort, benutzername) VALUES ('".$register_array['vorname']."','".$register_array['nachname']."','".$register_array['passwort']."','".$register_array['benutzername']."')";
     $db_connection->query($query);
 }
 
