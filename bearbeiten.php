@@ -8,12 +8,13 @@
     //holt den index von der GET request
     $articleid = filter_input(INPUT_GET, 'index');
     //holt einträge von include/funktionen.inc.php
-    $unserialized = hole_eintraege();
+    $unserialized = hole_eintraege(true);
     #var_dump($unserialized);
 
     //itereiert durch alle unserialisierten einträge und überprüft, wo die GET id dieselbe ist wie bei den Datenbankeinträgen id und schreibt somit titel und inhalt in fleder
     foreach ($unserialized as $e) {
         if($e['id']==$articleid){
+            $id = htmlspecialchars($e['id']);
             $titel = htmlspecialchars($e['titel']);
             $inhalt = htmlspecialchars($e['inhalt']);
         }
@@ -39,7 +40,7 @@
         <div id="inhalt">
             <h1>Beitrag ändern:</h1>            
             <!--Formular welches automatisch mit Daten vom Blog-Post gefüllt wird-->
-            <form action="bearbeitung_eintragen.php" method="post">
+            <form action="bearbeitung_eintragen.php?index=<?=$id;?>" method="post">
                 <p><input type="text" name="titel" id="titel" value="<?=$titel; ?>" /></p>
                 <p><textarea name="inhalt" id="eintrag" cols="50" rows="10"><?=$inhalt; ?></textarea></p>
                 <p><input type="submit" value="speichern" /></p>

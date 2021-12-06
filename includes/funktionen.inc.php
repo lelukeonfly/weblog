@@ -86,4 +86,13 @@ function loeschen($beitrag_id)
     $db_connection->query($query);
 }
 
+function bearbeiten($bearbetien_array){
+    $db_connection = get_db_connection();
+    #UPDATE `beitraege` SET `titel` = 'asdfjhljghaeljagfhagrhjuögrejögfrjkoöadföpi', `inhalt` = 'agnam,flkasdflashdflkjashdfklagsdoifgaosidlfgasljdghfklashdfasdfasdf' WHERE `beitraege`.`id` = 8; 
+    #change autor to beitrag id in bearbeitung_eintragen.php
+    $query = "UPDATE beitraege SET titel = '".$bearbetien_array['titel']."', inhalt = '".$bearbetien_array['inhalt']."', erstellt_am = '".$bearbetien_array['erstellt_am']."' WHERE beitraege.id = ".$bearbetien_array['autor'].";";
+    echo $query;
+    $db_connection->query($query);
+}
+
 ?>

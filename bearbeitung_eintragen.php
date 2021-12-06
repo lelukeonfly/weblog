@@ -12,19 +12,15 @@
     }
 
     //die Daten werden in ihre originalform gebracht und in ein assoziatives Array (article) gespeichert
-    //dazu wird der aktuelle benutzer von der  session ausgelesen und der timestamp gespeichert
-    $unserialized = hole_eintraege(true);
     $article['titel'] = trim(filter_input(INPUT_POST, 'titel'));
     $article['inhalt'] = trim(filter_input(INPUT_POST, 'inhalt'));
-    $article['erstellt_am'] = time();
-    $article['autor'] = $_SESSION['eingeloggt'];
-
+    $article['erstellt_am'] = date("Y-m-d H:i:s");
     //der index von dem artikel wird vom $_GET ausgelesen
-    $articleid = filter_input(INPUT_GET, 'index');
-    $temp = array_replace($unserialized, $article);
-    $unserialized[] = $temp;
-    //variablen werden serialisiert und in die Datei geschrieben
-    file_put_contents(PFAD_EINTRAEGE, serialize($unserialized));
+    $article['autor'] = $_GET['index'];
+    bearbeiten($article);
+
+    #hole einträge nachdem geupdated wurde so wird geupdated angezeigt
+    $unserialized = hole_eintraege(true);
 
     //variablen werden von unserialisierten array ausgelesen und die Änderungen werden ausgegeben
     foreach ($unserialized as $articleid => $eintrag) {
